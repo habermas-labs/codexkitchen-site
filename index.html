@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Codex Kitchen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #FBF7EF;
+    --bg-elevated: #F3ECDD;
+    --text: #2A2420;
+    --text-muted: #746B5B;
+    --accent: #B8451F;
+    --accent-soft: #EADAC9;
+    --sage: #5C6E4A;
+    --sage-soft: #DEE4D0;
+    --border: #E3D9C4;
+    --flag-bg: #F6E6C8;
+    --flag-border: #C98A2E;
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #1C1812; --bg-elevated: #262019; --text: #EDE6D8; --text-muted: #A89C87;
+      --accent: #E07A4C; --accent-soft: #3A2B21; --sage: #93A87E; --sage-soft: #2C3324;
+      --border: #3A332A; --flag-bg: #332A1B; --flag-border: #C98A2E;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #1C1812; --bg-elevated: #262019; --text: #EDE6D8; --text-muted: #A89C87;
+    --accent: #E07A4C; --accent-soft: #3A2B21; --sage: #93A87E; --sage-soft: #2C3324;
+    --border: #3A332A; --flag-bg: #332A1B; --flag-border: #C98A2E;
+  }
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font-family: 'Work Sans', system-ui, sans-serif; line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 640px; margin: 0 auto; padding: 1.75rem 1.25rem 4rem; }
+
+  header.top {
+    display: flex; align-items: center; gap: 0.75rem;
+    margin-bottom: 1.6rem; min-height: 2rem;
+  }
+  .back-btn {
+    background: none; border: none; color: var(--text-muted);
+    font-size: 1.3rem; line-height: 1; cursor: pointer; padding: 0.2rem 0.3rem 0.2rem 0;
+    display: none;
+  }
+  .back-btn.show { display: block; }
+  header.top .mark {
+    font-family: 'Fraunces', serif; font-weight: 600; font-size: 1.1rem;
+  }
+  header.top .mark span { color: var(--accent); }
+  header.top .crumb { font-size: 0.95rem; color: var(--text-muted); font-weight: 500; }
+
+  /* ---- Landing list ---- */
+  h2.group-head {
+    font-family: 'Fraunces', serif; font-style: italic; font-weight: 500;
+    font-size: 1.1rem; margin: 1.9rem 0 0.6rem; color: var(--text);
+  }
+  h2.group-head:first-of-type { margin-top: 0.3rem; }
+  .recipe-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0.95rem 0.2rem; border-bottom: 1px solid var(--border);
+    cursor: pointer; background: none; border-top: none; border-left: none; border-right: none;
+    width: 100%; text-align: left; font-family: inherit; color: inherit;
+  }
+  .recipe-row .rtext .rtitle { font-size: 1rem; font-weight: 500; }
+  .recipe-row .rtext .rmeta { font-size: 0.82rem; color: var(--text-muted); margin-top: 0.15rem; }
+  .recipe-row .chev { color: var(--text-muted); font-size: 1.1rem; }
+
+  /* ---- Recipe view ---- */
+  .recipe-title {
+    font-family: 'Fraunces', serif; font-weight: 600;
+    font-size: clamp(1.5rem, 6.5vw, 1.9rem); line-height: 1.15; margin: 0 0 0.3rem;
+  }
+  .recipe-sub { color: var(--text-muted); font-size: 0.88rem; margin: 0 0 1.3rem; }
+
+  .tabs { display: flex; gap: 0.5rem; margin-bottom: 1.6rem; }
+  .tabs button {
+    flex: 1; font-family: 'Work Sans', sans-serif; font-size: 0.88rem; font-weight: 500;
+    padding: 0.6rem 0.75rem; border-radius: 7px; border: 1px solid var(--border);
+    background: var(--bg-elevated); color: var(--text-muted); cursor: pointer;
+  }
+  .tabs button.active { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
+
+  h3.section-head {
+    font-family: 'Fraunces', serif; font-style: italic; font-weight: 500;
+    font-size: 1.05rem; margin: 1.8rem 0 0.7rem;
+  }
+  h3.section-head:first-child { margin-top: 0; }
+
+  ul.equipment { list-style: none; margin: 0 0 0.5rem; padding: 0; font-size: 0.92rem; color: var(--text-muted); }
+  ul.equipment li { padding: 0.2rem 0; }
+  ul.equipment li::before { content: "– "; color: var(--border); }
+
+  ol.steps { margin: 0; padding: 0; list-style: none; counter-reset: step; }
+  ol.steps li {
+    counter-increment: step; display: flex; gap: 0.9rem; padding: 0.8rem 0;
+    border-bottom: 1px solid var(--border); font-size: 0.96rem;
+  }
+  ol.steps li:last-child { border-bottom: none; }
+  ol.steps li::before {
+    content: counter(step); font-family: 'Fraunces', serif; font-weight: 600;
+    color: var(--accent); min-width: 1.4rem; font-size: 1.02rem;
+  }
+
+  .notes { font-size: 0.91rem; color: var(--text-muted); }
+  .notes p { margin: 0 0 0.75rem; }
+  .notes strong { color: var(--text); font-weight: 600; }
+
+  .flag {
+    background: var(--flag-bg); border-left: 3px solid var(--flag-border);
+    padding: 0.8rem 1rem; border-radius: 0 6px 6px 0; font-size: 0.87rem; margin-top: 1.6rem;
+  }
+  .flag .label { font-weight: 600; display: block; margin-bottom: 0.3rem; color: var(--flag-border); }
+
+  /* ---- Shopping tab ---- */
+  .shop-section-head {
+    font-size: 0.78rem; font-weight: 600; letter-spacing: 0.01em;
+    color: var(--sage); margin: 1.5rem 0 0.4rem; text-transform: none;
+  }
+  .shop-section-head:first-child { margin-top: 0; }
+  .item-row {
+    display: flex; align-items: center; gap: 0.6rem;
+    padding: 0.6rem 0; border-bottom: 1px solid var(--border);
+  }
+  .item-row .iname { flex: 1; font-size: 0.95rem; }
+  .item-row.done .iname { color: var(--text-muted); text-decoration: line-through; }
+  .chk-group { display: flex; gap: 0.5rem; }
+  .chk-wrap {
+    display: flex; flex-direction: column; align-items: center; gap: 0.2rem;
+    cursor: pointer;
+  }
+  .chk-wrap .tiny { font-size: 0.62rem; color: var(--text-muted); letter-spacing: 0.01em; }
+  input[type="checkbox"].box {
+    appearance: none; width: 19px; height: 19px; border: 1.5px solid var(--text-muted);
+    border-radius: 5px; position: relative; cursor: pointer; margin: 0;
+  }
+  input[type="checkbox"].box:checked { background: var(--accent); border-color: var(--accent); }
+  input[type="checkbox"].box:checked::after {
+    content: ""; position: absolute; left: 5px; top: 1px; width: 5px; height: 10px;
+    border: solid var(--bg); border-width: 0 2px 2px 0; transform: rotate(40deg);
+  }
+
+  button.reset {
+    margin-top: 1.3rem; font-family: 'Work Sans', sans-serif; font-size: 0.82rem;
+    color: var(--text-muted); background: none; border: none; text-decoration: underline;
+    text-underline-offset: 2px; cursor: pointer; padding: 0.3rem 0;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <button class="back-btn" id="backBtn" onclick="goHome()">←</button>
+    <div class="mark" id="headerMark">Codex <span>Kitchen</span></div>
+  </header>
+  <div id="app"></div>
+</div>
+
+<script>
+/* ======================================================================
+   RECIPE DATA
+   To add a new recipe: add an entry here. category: 'meal' or 'prep'
+   (controls which landing-page section it appears under — add a new
+   category key + CATEGORY_LABELS entry if a third grouping is needed).
+   Shopping sections pull from SHOP_SECTIONS; use "Other" if nothing fits.
+   ====================================================================== */
+  const CATEGORY_LABELS = { meal: 'Meals', prep: 'Ingredient prep' };
+  const SHOP_SECTIONS = ['Produce', 'Meat & Seafood', 'Dairy & Eggs', 'Pantry & Dry Goods', 'Spices & Seasonings', 'Frozen', 'Other'];
+
+  const recipes = {
+    gumbo: {
+      title: "Instant Pot Chicken, Sausage & Shrimp Gumbo",
+      category: 'meal',
+      yield: "Serves about 6",
+      related: [['rice', 'rice blend']],
+      equipment: ["Electric pressure cooker, 6-quart or larger", "Cutting board and knife, if dicing celery", "Ladle"],
+      steps: [
+        "Add the frozen pepper and onion mix, celery (if using), garlic powder, andouille sausage, chicken broth, diced tomatoes, smoked paprika, thyme, cayenne, bay leaves, and black pepper to the pressure cooker. Stir once to combine.",
+        "Seal the lid, valve to sealing, cook Manual/Pressure Cook, High, 8 minutes. A fuller pot can take 10–20 minutes just to build pressure before the countdown starts — that's normal.",
+        "Quick release. Remove the lid once the pin drops, and fish out and discard the bay leaves.",
+        "Turn the pot off, or switch to Keep Warm at most. Stir in the shredded chicken, shrimp, filé powder, and cooked rice blend. Let it sit uncovered, stirring occasionally, 5–8 minutes, until heated through and the filé has thickened the broth. Do not boil or re-pressurize after adding filé — it turns stringy and gluey.",
+        "Ladle into bowls, top with green onions. Set out salt at the table."
+      ],
+      notes: [
+        ["No roux", "the andouille carries the smoky depth, filé does the thickening at the end."],
+        ["Filé powder must never be boiled or pressure cooked.", "Stir in off heat, at the very end, gradually — it keeps thickening after it's stirred in."],
+        ["Tail-on cooked shrimp:", "pinch and pull the tail off over a sink — it slides off easily once cooked."],
+        ["Thawing shrimp:", "fridge overnight is best; same-day cold-water thaw (sealed bag, water changed every 10–15 min) takes about 15–20 minutes per pound. Never thaw at room temperature."]
+      ],
+      openQuestion: "Celery — add 2 diced stalks, or skip entirely. Both were left as valid options; not settled.",
+      ingredients: [
+        { name: "Frozen three-pepper and onion strip mix", qty: "1 bag", section: "Frozen" },
+        { name: "Celery", qty: "2 stalks, diced (optional)", section: "Produce" },
+        { name: "Garlic powder", qty: "¾ tsp", section: "Spices & Seasonings" },
+        { name: "Andouille sausage", qty: "12 oz, sliced into rounds", section: "Meat & Seafood" },
+        { name: "Rotisserie chicken", qty: "1 whole", section: "Meat & Seafood" },
+        { name: "Salt-free chicken broth", qty: "4 cups", section: "Pantry & Dry Goods" },
+        { name: "No-salt-added diced tomatoes", qty: "14.5 oz can", section: "Pantry & Dry Goods" },
+        { name: "Smoked paprika", qty: "1 tsp", section: "Spices & Seasonings" },
+        { name: "Dried thyme", qty: "1 tsp", section: "Spices & Seasonings" },
+        { name: "Cayenne pepper", qty: "¼ tsp", section: "Spices & Seasonings" },
+        { name: "Bay leaves", qty: "2", section: "Spices & Seasonings" },
+        { name: "Black pepper", qty: "½ tsp", section: "Spices & Seasonings" },
+        { name: "Large cooked shrimp, tails removed", qty: "1 lb", section: "Meat & Seafood" },
+        { name: "Gumbo filé powder", qty: "3 tsp", section: "Spices & Seasonings" },
+        { name: "Cooked rice blend (see Rice Blend recipe)", qty: "4½ cups", section: "Other" },
+        { name: "Green onions", qty: "3, sliced", section: "Produce" },
+        { name: "Salt, for serving", qty: "optional", section: "Pantry & Dry Goods" }
+      ]
+    },
+    rice: {
+      title: "Batch-Cooked Rice Blend",
+      category: 'prep',
+      yield: "Makes 2 freezer-bag portions (~4½ cups cooked each)",
+      related: [['gumbo', 'gumbo']],
+      equipment: ["Electric pressure cooker", "Sheet pan", "2 freezer bags, quart-size or larger"],
+      steps: [
+        "Add the rinsed rice blend and water to the pressure cooker.",
+        "Seal the lid, valve to sealing, cook Manual/Pressure Cook, High, 22–25 minutes.",
+        "Natural release 10 minutes, then quick release the rest. If still too firm, reseal and cook a few more minutes.",
+        "Spread the rice on a sheet pan, let it cool uncovered 10–15 minutes so steam escapes before bagging.",
+        "Split into two freezer bags, press flat to remove air, and freeze."
+      ],
+      notes: [
+        ["This ratio (1.75:1 water to rice, 22–25 min) is for the brown rice & wild rice two-grain blend", "— the one currently used. A sealed pressure cooker loses much less liquid than an open stovetop pot, which is why this differs from the bag's own printed recipe."],
+        ["Judge doneness by the wild rice", "— it's the slowest-cooking component in any blend."],
+        ["Frozen solid out of the freezer?", "Soak the sealed bag in cool water, kneading every few minutes; switch to warm water near the end. Still-frozen chunks can also go straight into the gumbo's off-heat step."],
+        ["Storage:", "freeze flat; keeps about 4–6 months."]
+      ],
+      openQuestion: "Which blend to standardize on — two-grain (brown & wild) vs. four-grain (adds red rice, brown basmati) — wasn't finalized as permanent. Exact bags-to-buy per batch also wasn't pinned down.",
+      ingredients: [
+        { name: "Raw rice blend (brown + wild rice)", qty: "3 cups", section: "Pantry & Dry Goods" },
+        { name: "Water", qty: "5¼ cups", section: "Other" }
+      ]
+    }
+  };
+
+/* ====================== ROUTING / RENDERING ====================== */
+  function parseHash() {
+    const h = location.hash.replace(/^#\/?/, '');
+    if (!h) return { view: 'home' };
+    const parts = h.split('/');
+    const slug = parts[0];
+    const tab = parts[1] === 'shopping' ? 'shopping' : 'instructions';
+    if (recipes[slug]) return { view: 'recipe', slug, tab };
+    return { view: 'home' };
+  }
+
+  function render() {
+    const route = parseHash();
+    const app = document.getElementById('app');
+    const back = document.getElementById('backBtn');
+    const mark = document.getElementById('headerMark');
+
+    if (route.view === 'home') {
+      back.classList.remove('show');
+      mark.style.display = '';
+      app.innerHTML = renderHome();
+    } else {
+      back.classList.add('show');
+      mark.style.display = 'none';
+      app.innerHTML = renderRecipe(route.slug, route.tab);
+      if (route.tab === 'shopping') wireShopping(route.slug);
+    }
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }
+
+  function renderHome() {
+    const order = ['meal', 'prep'];
+    let html = '';
+    order.forEach(cat => {
+      const entries = Object.entries(recipes).filter(([, r]) => r.category === cat);
+      if (!entries.length) return;
+      html += `<h2 class="group-head">${CATEGORY_LABELS[cat]}</h2>`;
+      entries.forEach(([slug, r]) => {
+        html += `<button class="recipe-row" onclick="location.hash='#/${slug}'">
+          <div class="rtext"><div class="rtitle">${r.title}</div><div class="rmeta">${r.yield}</div></div>
+          <div class="chev">›</div>
+        </button>`;
+      });
+    });
+    return html;
+  }
+
+  function renderRecipe(slug, tab) {
+    const r = recipes[slug];
+    const related = r.related.map(([s, label]) =>
+      `<a href="#/${s}" style="color:var(--sage);text-decoration:underline;text-underline-offset:2px;">${label}</a>`).join(', ');
+
+    let html = `
+      <h1 class="recipe-title">${r.title}</h1>
+      <p class="recipe-sub">${r.yield}${r.related.length ? ' · see also ' + related : ''}</p>
+      <div class="tabs">
+        <button class="${tab === 'instructions' ? 'active' : ''}" onclick="location.hash='#/${slug}/instructions'">Instructions</button>
+        <button class="${tab === 'shopping' ? 'active' : ''}" onclick="location.hash='#/${slug}/shopping'">Shopping list</button>
+      </div>
+    `;
+
+    if (tab === 'instructions') {
+      html += `<h3 class="section-head">Equipment</h3><ul class="equipment">${r.equipment.map(e => `<li>${e}</li>`).join('')}</ul>`;
+      html += `<h3 class="section-head">Method</h3><ol class="steps">${r.steps.map(s => `<li>${s}</li>`).join('')}</ol>`;
+      html += `<h3 class="section-head">Notes</h3><div class="notes">${r.notes.map(([a, b]) => `<p><strong>${a}</strong> ${b}</p>`).join('')}</div>`;
+      if (r.openQuestion) html += `<div class="flag"><span class="label">Still deciding</span>${r.openQuestion}</div>`;
+    } else {
+      SHOP_SECTIONS.forEach(sec => {
+        const items = r.ingredients.map((ing, i) => ({ ...ing, i })).filter(ing => ing.section === sec);
+        if (!items.length) return;
+        html += `<div class="shop-section-head">${sec}</div>`;
+        items.forEach(ing => {
+          html += `<div class="item-row" id="row-${slug}-${ing.i}">
+            <div class="iname">${ing.name}${ing.qty ? ` — ${ing.qty}` : ''}</div>
+            <div class="chk-group">
+              <label class="chk-wrap"><input type="checkbox" class="box" data-slug="${slug}" data-idx="${ing.i}" data-kind="have"><span class="tiny">have</span></label>
+              <label class="chk-wrap"><input type="checkbox" class="box" data-slug="${slug}" data-idx="${ing.i}" data-kind="cart"><span class="tiny">cart</span></label>
+            </div>
+          </div>`;
+        });
+      });
+      html += `<button class="reset" onclick="resetShopping('${slug}')">Reset shopping list</button>`;
+    }
+    return html;
+  }
+
+  function loadState(slug) {
+    try { return JSON.parse(localStorage.getItem('ck-shop-' + slug) || '{}'); }
+    catch (e) { return {}; }
+  }
+  function saveState(slug, state) {
+    try { localStorage.setItem('ck-shop-' + slug, JSON.stringify(state)); }
+    catch (e) { /* storage unavailable — state just won't persist */ }
+  }
+
+  function wireShopping(slug) {
+    const state = loadState(slug);
+    document.querySelectorAll(`input.box[data-slug="${slug}"]`).forEach(box => {
+      const idx = box.dataset.idx, kind = box.dataset.kind;
+      const key = idx + '-' + kind;
+      box.checked = !!state[key];
+      updateRowStyle(slug, idx);
+      box.addEventListener('change', () => {
+        const s = loadState(slug);
+        s[idx + '-' + kind] = box.checked;
+        saveState(slug, s);
+        updateRowStyle(slug, idx);
+      });
+    });
+  }
+
+  function updateRowStyle(slug, idx) {
+    const state = loadState(slug);
+    const done = !!state[idx + '-have'] || !!state[idx + '-cart'];
+    const row = document.getElementById(`row-${slug}-${idx}`);
+    if (row) row.classList.toggle('done', done);
+  }
+
+  function resetShopping(slug) {
+    try { localStorage.removeItem('ck-shop-' + slug); } catch (e) {}
+    render();
+  }
+
+  function goHome() { location.hash = '#/'; }
+
+  window.addEventListener('hashchange', render);
+  render();
+</script>
+</body>
+</html>
