@@ -129,6 +129,12 @@
     color: var(--sage); margin: 1.5rem 0 0.4rem; text-transform: none;
   }
   .shop-section-head:first-child { margin-top: 0; }
+  h3.variant-parent {
+    font-family: 'Fraunces', serif; font-style: italic; font-weight: 500;
+    font-size: 1.05rem; margin: 2.2rem 0 0.3rem; color: var(--accent);
+    padding-top: 1.4rem; border-top: 1px solid var(--border);
+  }
+  p.variant-note { font-size: 0.82rem; color: var(--text-muted); margin: 0 0 1.1rem; }
   .item-row {
     display: flex; align-items: center; gap: 0.6rem;
     padding: 0.6rem 0; border-bottom: 1px solid var(--border);
@@ -183,7 +189,7 @@
       title: "Instant Pot Chicken, Sausage & Shrimp Gumbo",
       category: 'meal',
       yield: "Serves about 6",
-      related: [['rice', 'rice blend'], ['cajunsoup', 'Cajun chicken & wild rice soup']],
+      related: [['rice', 'rice blend'], ['cajunsoup', 'Cajun chicken & wild rice soup'], ['chili', 'three-bean chili']],
       equipment: ["Electric pressure cooker, 6-quart or larger", "Cutting board and knife, if dicing celery", "Ladle"],
       steps: [
         "Add the frozen pepper and onion mix, celery (if using), garlic powder, andouille sausage, chicken broth, diced tomatoes, smoked paprika, thyme, cayenne, bay leaves, and black pepper to the pressure cooker. Stir once to combine.",
@@ -287,6 +293,84 @@
         { name: "Bay leaf", qty: "1", section: "Spices & Seasonings" },
         { name: "Crusty whole grain or sourdough bread, for dipping", qty: "", section: "Other" }
       ]
+    },
+    chili: {
+      title: "Instant Pot Three-Bean Chili",
+      category: 'meal',
+      yield: "8 servings · about 55 minutes total (15 prep, 10–15 to build pressure, 20 at pressure, ~5 to release)",
+      related: [['gumbo', 'gumbo']],
+      equipment: ["Electric pressure cooker (Instant Pot or similar), 6-quart or larger", "Small bowl, for the seasoning mix", "Can opener and colander, for draining and rinsing the beans", "Cutting board and knife", "Ladle"],
+      steps: [
+        "Combine the chili powder, smoked paprika, salt, oregano, cocoa powder, cumin, cinnamon, coriander, and black pepper in a small bowl. Set aside.",
+        "Drain and rinse all three cans of beans.",
+        "Turn the pressure cooker to Sauté on high. Heat the olive oil, then add the onion and jalapeño and cook 4–5 minutes, until the onion softens. (To add meat or mushrooms, see Variations before this step.)",
+        "Add the fire-roasted tomatoes, all three kinds of beans, the tomato sauce, the minced chipotle pepper, the 2 tbsp of adobo sauce, and the seasoning mix. Stir to combine, scraping up anything stuck to the bottom of the pot.",
+        "Close and lock the lid, set the valve to sealing, and cook on Manual/Pressure Cook, High, for 20 minutes. Expect 10–15 minutes for the pot to build pressure before the countdown starts.",
+        "Quick release the pressure, about 5 minutes. Unlock and remove the lid.",
+        "Stir, taste, and adjust the salt. Serve with toppings."
+      ],
+      notes: [
+        ["Changes from the original:", "turkey is removed from the base, and the beans are three varieties instead of two kidney varieties."],
+        ["No added liquid needed.", "The two cans of diced tomatoes and the can of tomato sauce provide plenty of liquid, with or without meat. The 20-minute pressure cook time has been made many times."],
+        ["Original nutrition (turkey version):", "8 servings, 247 calories, 19g protein, 9g fiber, 1085mg sodium per serving — not recalculated for this version."],
+        ["Heat:", "adjust with more chipotle and/or adobo sauce."],
+        ["Leftover chipotles:", "freeze them in ice cube trays for future use."]
+      ],
+      extras: [
+        {
+          heading: "Choosing your beans",
+          body: [
+            "Use three different varieties, one 15.5 oz can of each. The shopping list below defaults to the classic combination — dark red kidney, black, and pinto — but any three of these work: dark red kidney, light red kidney, black beans, pinto beans, cannellini, or great northern/navy beans. The original recipe used one can each of dark and light red kidney."
+          ]
+        },
+        {
+          heading: "Variations",
+          body: [
+            "<strong>Ground meat, browned first (the original method).</strong> Brown 1 lb of ground turkey (beef or chicken also work) in the oil on Sauté for 3–4 minutes until crumbly, then add the onion and jalapeño and cook 2–3 minutes more, then continue with the tomatoes and beans.",
+            "<strong>Cooked meat, added at the end.</strong> Stir already-cooked meat in after the pressure cook, pot off, just to warm through — the same approach as the gumbo. Shredded rotisserie chicken, sliced andouille, or chorizo all work.",
+            "<strong>Meat per bowl.</strong> Keep the pot vegetarian and cook meat separately, adding it bowl by bowl, so one pot serves both vegetarians and meat eaters. Untested.",
+            "<strong>Mushrooms.</strong> Finely dice about 8 oz cremini mushrooms and brown them in the oil before the onion and jalapeño, cooking until their liquid evaporates — adds savory depth, with or without meat. Untested.",
+            "<strong>Other depth boosters.</strong> A tablespoon of tomato paste sautéed with the onion, or a splash of soy sauce or spoonful of miso stirred in at the end. Untested."
+          ]
+        },
+        {
+          heading: "Lower sodium",
+          body: [
+            "The original is 1085mg sodium per serving, mostly from canned goods. Use no-salt-added beans (or rinse regular ones well), no-salt-added fire-roasted tomatoes and tomato sauce, and cut or omit the 1 tsp salt in the seasoning mix, setting salt out at the table instead. Chipotles in adobo are salty — use the minced pepper but go easy on the extra adobo sauce. If adding sausage, account for its sodium too. Build flavor instead with extra smoked paprika, cumin, chili powder, or a squeeze of lime."
+          ]
+        }
+      ],
+      ingredients: [
+        { name: "Onion, chopped", qty: "1", section: "Produce" },
+        { name: "Jalapeño pepper, seeded and minced", qty: "1", section: "Produce" },
+        { name: "Green onions, sliced, for serving (optional)", qty: "", section: "Produce" },
+        { name: "Sour cream, for serving (optional)", qty: "", section: "Dairy & Eggs" },
+        { name: "Shredded smoked cheddar, for serving (optional)", qty: "", section: "Dairy & Eggs" },
+        { name: "Olive oil", qty: "1 tbsp", section: "Pantry & Dry Goods" },
+        { name: "Dark red kidney beans (classic combo — see Choosing your beans)", qty: "15.5 oz can", section: "Pantry & Dry Goods" },
+        { name: "Black beans (classic combo — see Choosing your beans)", qty: "15.5 oz can", section: "Pantry & Dry Goods" },
+        { name: "Pinto beans (classic combo — see Choosing your beans)", qty: "15.5 oz can", section: "Pantry & Dry Goods" },
+        { name: "Fire-roasted diced tomatoes", qty: "2 (14.5 oz) cans", section: "Pantry & Dry Goods" },
+        { name: "Tomato sauce", qty: "15 oz can", section: "Pantry & Dry Goods" },
+        { name: "Chipotle peppers in adobo sauce (need 1 minced pepper + 2 tbsp sauce)", qty: "1 small can", section: "Pantry & Dry Goods" },
+        { name: "Chili powder", qty: "1 tbsp", section: "Spices & Seasonings" },
+        { name: "Smoked paprika", qty: "2 tsp", section: "Spices & Seasonings" },
+        { name: "Salt, plus more to taste", qty: "1 tsp", section: "Spices & Seasonings" },
+        { name: "Dried oregano", qty: "1 tsp", section: "Spices & Seasonings" },
+        { name: "Unsweetened cocoa powder", qty: "1 tsp", section: "Spices & Seasonings" },
+        { name: "Ground cumin", qty: "½ tsp", section: "Spices & Seasonings" },
+        { name: "Ground cinnamon", qty: "¼ tsp", section: "Spices & Seasonings" },
+        { name: "Ground coriander", qty: "¼ tsp", section: "Spices & Seasonings" },
+        { name: "Black pepper", qty: "¼ tsp", section: "Spices & Seasonings" },
+        { name: "Ground turkey, for browning first (or beef or chicken)", qty: "1 lb", section: "Meat & Seafood", variant: true },
+        { name: "Shredded rotisserie chicken, cooked, stirred in at the end", qty: "~2 cups", section: "Meat & Seafood", variant: true },
+        { name: "Andouille sausage, sliced, cooked, stirred in at the end", qty: "12 oz", section: "Meat & Seafood", variant: true },
+        { name: "Chorizo, cooked, stirred in at the end", qty: "12 oz", section: "Meat & Seafood", variant: true },
+        { name: "Cremini mushrooms, finely diced", qty: "8 oz", section: "Produce", variant: true },
+        { name: "Tomato paste", qty: "1 tbsp", section: "Pantry & Dry Goods", variant: true },
+        { name: "Soy sauce", qty: "a splash", section: "Pantry & Dry Goods", variant: true },
+        { name: "Miso", qty: "1 spoonful", section: "Pantry & Dry Goods", variant: true }
+      ]
     }
   };
 
@@ -355,22 +439,39 @@
       html += `<h3 class="section-head">Equipment</h3><ul class="equipment">${r.equipment.map(e => `<li>${e}</li>`).join('')}</ul>`;
       html += `<h3 class="section-head">Method</h3><ol class="steps">${r.steps.map(s => `<li>${s}</li>`).join('')}</ol>`;
       html += `<h3 class="section-head">Notes</h3><div class="notes">${r.notes.map(([a, b]) => `<p><strong>${a}</strong> ${b}</p>`).join('')}</div>`;
+      (r.extras || []).forEach(sec => {
+        html += `<h3 class="section-head">${sec.heading}</h3><div class="notes">${sec.body.map(p => `<p>${p}</p>`).join('')}</div>`;
+      });
       if (r.openQuestion) html += `<div class="flag"><span class="label">Still deciding</span>${r.openQuestion}</div>`;
     } else {
-      SHOP_SECTIONS.forEach(sec => {
-        const items = r.ingredients.map((ing, i) => ({ ...ing, i })).filter(ing => ing.section === sec);
-        if (!items.length) return;
-        html += `<div class="shop-section-head">${sec}</div>`;
-        items.forEach(ing => {
-          html += `<div class="item-row" id="row-${slug}-${ing.i}">
+      const allIng = r.ingredients.map((ing, i) => ({ ...ing, i }));
+      const rowHtml = ing => `<div class="item-row" id="row-${slug}-${ing.i}">
             <div class="iname">${ing.name}${ing.qty ? ` — ${ing.qty}` : ''}</div>
             <div class="chk-group">
               <label class="chk-wrap"><input type="checkbox" class="box" data-slug="${slug}" data-idx="${ing.i}" data-kind="have"><span class="tiny">have</span></label>
               <label class="chk-wrap"><input type="checkbox" class="box" data-slug="${slug}" data-idx="${ing.i}" data-kind="cart"><span class="tiny">cart</span></label>
             </div>
           </div>`;
-        });
+
+      SHOP_SECTIONS.forEach(sec => {
+        const items = allIng.filter(ing => ing.section === sec && !ing.variant);
+        if (!items.length) return;
+        html += `<div class="shop-section-head">${sec}</div>`;
+        items.forEach(ing => { html += rowHtml(ing); });
       });
+
+      const variantItems = allIng.filter(ing => ing.variant);
+      if (variantItems.length) {
+        html += `<h3 class="variant-parent">Variations &amp; optional add-ins</h3>`;
+        html += `<p class="variant-note">Pick what applies to the version you're making — see Instructions for details.</p>`;
+        SHOP_SECTIONS.forEach(sec => {
+          const items = variantItems.filter(ing => ing.section === sec);
+          if (!items.length) return;
+          html += `<div class="shop-section-head">${sec}</div>`;
+          items.forEach(ing => { html += rowHtml(ing); });
+        });
+      }
+
       html += `<button class="reset" onclick="resetShopping('${slug}')">Reset shopping list</button>`;
     }
     return html;
